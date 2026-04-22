@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>English Text Types</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #1a1a2e;
+      --cream: #f7f3ee;
+      --gold: #c9a84c;
+      --rust: #c0522a;
+      --teal: #2a6b72;
+      --light: #fdf9f4;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--light);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    /* ── HERO ── */
+    header {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 60px 24px 80px;
+      background: var(--ink);
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 20% 80%, rgba(201,168,76,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 80% 20%, rgba(42,107,114,0.22) 0%, transparent 60%);
+    }
+
+    .hero-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.2s ease forwards;
+    }
+
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(48px, 9vw, 100px);
+      font-weight: 900;
+      color: var(--cream);
+      line-height: 1.0;
+      letter-spacing: -2px;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.4s ease forwards;
+    }
+
+    header h1 span {
+      color: var(--gold);
+      font-style: italic;
+    }
+
+    .hero-sub {
+      max-width: 520px;
+      margin-top: 28px;
+      font-size: 17px;
+      font-weight: 300;
+      color: rgba(247,243,238,0.65);
+      line-height: 1.7;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.6s ease forwards;
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: rgba(247,243,238,0.4);
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fadeUp 0.8s 1s ease forwards;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 48px;
+      background: linear-gradient(to bottom, rgba(201,168,76,0.8), transparent);
+      animation: scrollPulse 1.8s infinite;
+    }
+
+    /* ── NAV STRIP ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(247,243,238,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(26,26,46,0.08);
+      display: flex;
+      justify-content: center;
+      gap: 0;
+    }
+
+    nav a {
+      display: inline-block;
+      padding: 16px 32px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--ink);
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    nav a:hover { color: var(--gold); border-bottom-color: var(--gold); }
+
+    /* ── CARDS SECTION ── */
+    .cards-section {
+      padding: 100px 24px 80px;
+      max-width: 1160px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    .section-header .eyebrow {
+      font-size: 11px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .section-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.15;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 28px;
+    }
+
+    .card {
+      position: relative;
+      background: white;
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 2px 20px rgba(26,26,46,0.06);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 16px 48px rgba(26,26,46,0.14);
+    }
+
+    .card-accent {
+      height: 5px;
+      width: 100%;
+    }
+
+    .card--narrative .card-accent { background: var(--gold); }
+    .card--recount   .card-accent { background: var(--rust); }
+    .card--biography .card-accent { background: var(--teal); }
+
+    .card-body {
+      padding: 36px 32px 32px;
+    }
+
+    .card-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 64px;
+      font-weight: 900;
+      line-height: 1;
+      margin-bottom: 16px;
+      opacity: 0.07;
+      position: absolute;
+      right: 24px;
+      top: 20px;
+    }
+
+    .card--narrative .card-number { color: var(--gold); }
+    .card--recount   .card-number { color: var(--rust); }
+    .card--biography .card-number { color: var(--teal); }
+
+    .card-tag {
+      display: inline-block;
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 2px;
+      margin-bottom: 18px;
+    }
+
+    .card--narrative .card-tag { background: rgba(201,168,76,0.12); color: #8b6d1e; }
+    .card--recount   .card-tag { background: rgba(192,82,42,0.10); color: #8b3a1e; }
+    .card--biography .card-tag { background: rgba(42,107,114,0.10); color: #1a5560; }
+
+    .card-body h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 14px;
+      line-height: 1.25;
+    }
+
+    .card-body p {
+      font-size: 15px;
+      line-height: 1.7;
+      color: rgba(26,26,46,0.6);
+      margin-bottom: 28px;
+    }
+
+    .card-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: gap 0.2s;
+    }
+
+    .card--narrative .card-cta { color: #8b6d1e; }
+    .card--recount   .card-cta { color: #8b3a1e; }
+    .card--biography .card-cta { color: #1a5560; }
+
+    .card:hover .card-cta { gap: 14px; }
+
+    /* ── DETAIL SECTIONS ── */
+    .detail-section {
+      padding: 100px 24px;
+      max-width: 860px;
+      margin: 0 auto;
+      border-top: 1px solid rgba(26,26,46,0.07);
+    }
+
+    .detail-eyebrow {
+      font-size: 11px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+
+    .narrative-eye  { color: #8b6d1e; }
+    .recount-eye    { color: #8b3a1e; }
+    .biography-eye  { color: #1a5560; }
+
+    .detail-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(34px, 5vw, 54px);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 36px;
+    }
+
+    .detail-section p {
+      font-size: 17px;
+      line-height: 1.85;
+      color: rgba(26,26,46,0.75);
+      margin-bottom: 24px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin: 40px 0;
+    }
+
+    @media(max-width: 560px) { .info-grid { grid-template-columns: 1fr; } }
+
+    .info-box {
+      padding: 24px;
+      border-radius: 4px;
+      border-left: 3px solid;
+    }
+
+    .info-box.gold-box   { background: rgba(201,168,76,0.07);  border-color: var(--gold); }
+    .info-box.rust-box   { background: rgba(192,82,42,0.07);   border-color: var(--rust); }
+    .info-box.teal-box   { background: rgba(42,107,114,0.07);  border-color: var(--teal); }
+
+    .info-box h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .info-box ul {
+      padding-left: 18px;
+    }
+
+    .info-box ul li {
+      font-size: 14px;
+      line-height: 1.7;
+      color: rgba(26,26,46,0.7);
+      margin-bottom: 4px;
+    }
+
+    /* ── EXAMPLE BOX ── */
+    .example-box {
+      margin: 40px 0;
+      background: var(--ink);
+      border-radius: 4px;
+      padding: 36px 40px;
+      color: var(--cream);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .example-box::before {
+      content: '"';
+      position: absolute;
+      top: -10px;
+      left: 20px;
+      font-family: 'Playfair Display', serif;
+      font-size: 180px;
+      line-height: 1;
+      color: rgba(255,255,255,0.04);
+    }
+
+    .example-label {
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    .example-box p {
+      font-size: 15px;
+      line-height: 1.9;
+      color: rgba(247,243,238,0.8);
+      margin-bottom: 0;
+    }
+
+    /* ── STRUCTURE TABLE ── */
+    .struct-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 36px 0;
+      font-size: 15px;
+    }
+
+    .struct-table th {
+      text-align: left;
+      padding: 12px 16px;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      background: var(--ink);
+      color: var(--cream);
+      font-weight: 500;
+    }
+
+    .struct-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(26,26,46,0.07);
+      vertical-align: top;
+      line-height: 1.6;
+      color: rgba(26,26,46,0.75);
+    }
+
+    .struct-table tr:last-child td { border-bottom: none; }
+    .struct-table tr:nth-child(even) td { background: rgba(26,26,46,0.02); }
+
+    .struct-table td:first-child {
+      font-weight: 500;
+      color: var(--ink);
+      white-space: nowrap;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      color: rgba(247,243,238,0.5);
+      text-align: center;
+      padding: 48px 24px;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    footer strong { color: var(--gold); font-family: 'Playfair Display', serif; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.4; }
+      50%       { opacity: 1; }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ── QUIZ ── */
+    .quiz-section {
+      margin-top: 60px;
+      padding-top: 48px;
+      border-top: 2px dashed rgba(26,26,46,0.1);
+    }
+
+    .quiz-section h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .quiz-section .quiz-desc {
+      font-size: 15px;
+      color: rgba(26,26,46,0.55);
+      margin-bottom: 28px;
+    }
+
+    .story-box {
+      background: #fff;
+      border-radius: 6px;
+      border-left: 4px solid;
+      padding: 28px 32px;
+      margin-bottom: 36px;
+      box-shadow: 0 2px 12px rgba(26,26,46,0.06);
+      font-size: 15px;
+      line-height: 1.85;
+      color: rgba(26,26,46,0.78);
+    }
+
+    .story-box strong { color: var(--ink); }
+
+    .story-box.gold-story { border-color: var(--gold); }
+    .story-box.rust-story { border-color: var(--rust); }
+    .story-box.teal-story { border-color: var(--teal); }
+
+    .story-label {
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+
+    .story-box.gold-story .story-label { color: #8b6d1e; }
+    .story-box.rust-story .story-label { color: #8b3a1e; }
+    .story-box.teal-story .story-label { color: #1a5560; }
+
+    .quiz-list { display: flex; flex-direction: column; gap: 20px; }
+
+    .quiz-item {
+      background: #fff;
+      border-radius: 6px;
+      padding: 24px 28px;
+      box-shadow: 0 2px 10px rgba(26,26,46,0.05);
+    }
+
+    .quiz-item .q-text {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 14px;
+      line-height: 1.55;
+    }
+
+    .q-num {
+      display: inline-block;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      font-size: 12px;
+      font-weight: 700;
+      text-align: center;
+      line-height: 26px;
+      margin-right: 10px;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .quiz-item.gold-q .q-num { background: var(--gold); }
+    .quiz-item.rust-q .q-num { background: var(--rust); }
+    .quiz-item.teal-q .q-num { background: var(--teal); }
+
+    .options { display: flex; flex-direction: column; gap: 8px; }
+
+    .opt-btn {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 11px 16px;
+      border-radius: 4px;
+      border: 1.5px solid rgba(26,26,46,0.12);
+      background: transparent;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      color: var(--ink);
+    }
+
+    .opt-btn:hover:not(:disabled) { background: rgba(26,26,46,0.04); border-color: rgba(26,26,46,0.28); }
+
+    .opt-btn.correct  { background: #d4edda; border-color: #28a745; color: #145523; font-weight: 500; }
+    .opt-btn.wrong    { background: #fde8e8; border-color: #dc3545; color: #7a1b1b; }
+    .opt-btn.reveal-correct { background: #d4edda; border-color: #28a745; color: #145523; }
+    .opt-btn:disabled { cursor: default; }
+
+    .feedback {
+      margin-top: 10px;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 8px 12px;
+      border-radius: 4px;
+      display: none;
+    }
+
+    .feedback.show { display: block; }
+    .feedback.ok  { background: #d4edda; color: #145523; }
+    .feedback.err { background: #fde8e8; color: #7a1b1b; }
+
+    .quiz-result {
+      margin-top: 28px;
+      padding: 24px 28px;
+      border-radius: 6px;
+      text-align: center;
+      display: none;
+    }
+
+    .quiz-result.show { display: block; }
+    .quiz-result .score-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 52px;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .quiz-result p { margin-top: 8px; font-size: 15px; }
+
+    .quiz-result.gold-res { background: rgba(201,168,76,0.12); }
+    .quiz-result.rust-res { background: rgba(192,82,42,0.10); }
+    .quiz-result.teal-res { background: rgba(42,107,114,0.10); }
+
+    .quiz-result.gold-res .score-num { color: #8b6d1e; }
+    .quiz-result.rust-res .score-num { color: #8b3a1e; }
+    .quiz-result.teal-res .score-num { color: #1a5560; }
+
+    .submit-btn {
+      margin-top: 24px;
+      padding: 14px 36px;
+      border: none;
+      border-radius: 4px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      color: white;
+    }
+
+    .submit-btn:hover { opacity: 0.85; }
+    .submit-btn.gold-btn { background: var(--gold); }
+    .submit-btn.rust-btn { background: var(--rust); }
+    .submit-btn.teal-btn { background: var(--teal); }
+
+    .reset-btn {
+      margin-top: 12px;
+      padding: 10px 28px;
+      border-radius: 4px;
+      border: 1.5px solid rgba(26,26,46,0.2);
+      background: transparent;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      color: var(--ink);
+      transition: background 0.2s;
+    }
+
+    .reset-btn:hover { background: rgba(26,26,46,0.05); }
+  </style>
+</head>
+<body>
+
+<!-- ═══ HERO ═══ -->
+<header>
+  <p class="hero-label">English Learning</p>
+  <h1>Text <span>Types</span></h1>
+  <p class="hero-sub">Master three essential forms of English writing — Narrative, Recount, and Short Biography — through clear explanations and real examples.</p>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    Explore
+  </div>
+</header>
+
+<!-- ═══ NAV ═══ -->
+<nav>
+  <a href="#cards">Overview</a>
+  <a href="#narrative">Narrative</a>
+  <a href="#recount">Recount</a>
+  <a href="#biography">Biography</a>
+</nav>
+
+<!-- ═══ CARDS GRID ═══ -->
+<section class="cards-section" id="cards">
+  <div class="section-header reveal">
+    <p class="eyebrow">Three Text Types</p>
+    <h2>Choose a topic to explore</h2>
+  </div>
+  <div class="cards-grid">
+
+    <!-- Card 1 -->
+    <a href="#narrative" class="card card--narrative reveal">
+      <div class="card-accent"></div>
+      <div class="card-body">
+        <div class="card-number">01</div>
+        <span class="card-tag">Imaginative</span>
+        <h3>Narrative Text</h3>
+        <p>A story-driven text type that entertains through conflict, characters, and resolution — the art of crafting compelling tales.</p>
+        <span class="card-cta">Learn more →</span>
+      </div>
+    </a>
+
+    <!-- Card 2 -->
+    <a href="#recount" class="card card--recount reveal">
+      <div class="card-accent"></div>
+      <div class="card-body">
+        <div class="card-number">02</div>
+        <span class="card-tag">Factual</span>
+        <h3>Recount Text</h3>
+        <p>A retelling of past events in chronological order — reliving personal experiences, adventures, or historical moments.</p>
+        <span class="card-cta">Learn more →</span>
+      </div>
+    </a>
+
+    <!-- Card 3 -->
+    <a href="#biography" class="card card--biography reveal">
+      <div class="card-accent"></div>
+      <div class="card-body">
+        <div class="card-number">03</div>
+        <span class="card-tag">Biographical</span>
+        <h3>Short Biography</h3>
+        <p>A concise account of someone's life — capturing key achievements, influences, and the legacy of a real person.</p>
+        <span class="card-cta">Learn more →</span>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- ═══ NARRATIVE ═══ -->
+<section class="detail-section" id="narrative">
+  <p class="detail-eyebrow narrative-eye reveal">Text Type 01</p>
+  <h2 class="reveal">Narrative Text</h2>
+
+  <p class="reveal"><strong>Narrative text</strong> is a type of text that tells a story to entertain, inspire, or convey a moral lesson. It involves characters, a setting, and a sequence of events that build toward a climax and resolution.</p>
+
+  <p class="reveal">The main purpose of narrative text is <em>to amuse or entertain the reader</em> while sometimes delivering an implicit message or lesson. It is one of the most common text types found in literature, films, and everyday storytelling.</p>
+
+  <div class="info-grid reveal">
+    <div class="info-box gold-box">
+      <h4>🏗️ Generic Structure</h4>
+      <ul>
+        <li><strong>Orientation</strong> — Who, when, where</li>
+        <li><strong>Complication</strong> — Problem arises</li>
+        <li><strong>Resolution</strong> — Problem solved</li>
+        <li><strong>Reorientation</strong> — Optional ending</li>
+      </ul>
+    </div>
+    <div class="info-box gold-box">
+      <h4>✏️ Language Features</h4>
+      <ul>
+        <li>Past tense verbs</li>
+        <li>Time connectives (then, after, suddenly)</li>
+        <li>Descriptive adjectives</li>
+        <li>Direct & indirect speech</li>
+        <li>Action & mental verbs</li>
+      </ul>
+    </div>
+  </div>
+
+  <table class="struct-table reveal">
+    <tr><th>Part</th><th>Function</th><th>Example Opening</th></tr>
+    <tr><td>Orientation</td><td>Introduces characters & setting</td><td>"Once upon a time, in a small village…"</td></tr>
+    <tr><td>Complication</td><td>Presents the central conflict</td><td>"One day, a fierce dragon appeared…"</td></tr>
+    <tr><td>Resolution</td><td>Resolves the conflict</td><td>"Together, they found a way to defeat it…"</td></tr>
+    <tr><td>Reorientation</td><td>Closing moral or reflection</td><td>"From that day on, the village lived in peace."</td></tr>
+  </table>
+
+  <div class="example-box reveal">
+    <p class="example-label">📖 Short Example</p>
+    <p><strong>The Lost Key</strong><br><br>
+    <em>Orientation:</em> One cold winter evening, a young girl named Lila was walking home through the forest.<br><br>
+    <em>Complication:</em> Suddenly, she realised she had lost the key to her house. The wind was howling and darkness fell quickly. She searched everywhere but could not find it.<br><br>
+    <em>Resolution:</em> Just as she was about to give up, a friendly fox appeared and led her back to the path where the key had fallen. With a grateful heart, Lila ran home safely.<br><br>
+    <em>Reorientation:</em> She never forgot that kindness can come from the most unexpected places.</p>
+  </div>
+
+  <!-- QUIZ NARRATIVE -->
+  <div class="quiz-section reveal">
+    <h3>📝 Quiz — Narrative Text</h3>
+    <p class="quiz-desc">Read the story below, then answer 10 questions. Click an option to see if you're correct!</p>
+    <div class="story-box gold-story">
+      <p class="story-label">📖 Read this story</p>
+      <p><strong>The Brave Little Turtle</strong></p><br>
+      <p>Once upon a time, in a peaceful lake surrounded by tall trees, there lived a small turtle named Timo. Unlike the other turtles who were content to stay close to the shore, Timo always dreamed of exploring the deep end of the lake.</p><br>
+      <p>One day, Timo finally decided to swim toward the deep water. However, halfway through, a strong current pulled him far from his home. He struggled against the waves but could not find his way back. The other turtles watched from the shore, too afraid to help.</p><br>
+      <p>Just when Timo was exhausted and about to give up, an old wise fish named Coral appeared. "Follow the direction of the reeds," she said calmly. Timo trusted her advice and slowly swam in that direction. After a long struggle, he finally reached the shore safely.</p><br>
+      <p>From that day on, Timo became the most respected turtle in the lake, and he always reminded others that courage, combined with wisdom, can overcome any obstacle.</p>
+    </div>
+    <div class="quiz-list" id="quiz-narrative"></div>
+    <button class="submit-btn gold-btn" onclick="submitQuiz('narrative')">Check My Score</button>
+    <button class="reset-btn" onclick="resetQuiz('narrative')">Reset Quiz</button>
+    <div class="quiz-result gold-res" id="result-narrative">
+      <div class="score-num" id="score-narrative"></div>
+      <p id="msg-narrative"></p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ RECOUNT ═══ -->
+<section class="detail-section" id="recount">
+  <p class="detail-eyebrow recount-eye reveal">Text Type 02</p>
+  <h2 class="reveal">Recount Text</h2>
+
+  <p class="reveal"><strong>Recount text</strong> retells past events or experiences in the order they happened. Unlike narrative text, it does not necessarily involve a conflict or complication — the main goal is simply to <em>inform or entertain</em> by revisiting what occurred.</p>
+
+  <p class="reveal">Recount texts can be personal (diary entries, holiday stories), factual (historical events, news reports), or imaginative. The language is typically clear, chronological, and written in the past tense.</p>
+
+  <div class="info-grid reveal">
+    <div class="info-box rust-box">
+      <h4>🏗️ Generic Structure</h4>
+      <ul>
+        <li><strong>Orientation</strong> — Who, when, where, why</li>
+        <li><strong>Events</strong> — Sequence of what happened</li>
+        <li><strong>Reorientation</strong> — Closing thought or reflection</li>
+      </ul>
+    </div>
+    <div class="info-box rust-box">
+      <h4>✏️ Language Features</h4>
+      <ul>
+        <li>Simple past tense</li>
+        <li>Time connectives (first, then, next, finally)</li>
+        <li>First-person (I, we) for personal recount</li>
+        <li>Third-person for factual recount</li>
+        <li>Specific participants</li>
+      </ul>
+    </div>
+  </div>
+
+  <table class="struct-table reveal">
+    <tr><th>Part</th><th>Function</th><th>Example</th></tr>
+    <tr><td>Orientation</td><td>Sets the scene</td><td>"Last Saturday, my family and I visited Bromo Volcano."</td></tr>
+    <tr><td>Event 1</td><td>First thing that happened</td><td>"We woke up at 3 AM and started the hike."</td></tr>
+    <tr><td>Event 2</td><td>Next event in sequence</td><td>"At sunrise, we reached the viewpoint."</td></tr>
+    <tr><td>Reorientation</td><td>Personal reflection</td><td>"It was an unforgettable experience."</td></tr>
+  </table>
+
+  <div class="example-box reveal">
+    <p class="example-label">📖 Short Example</p>
+    <p><strong>My Trip to Bromo</strong><br><br>
+    <em>Orientation:</em> Last month, my family and I decided to visit Mount Bromo in East Java. We were very excited as it was our first trip there.<br><br>
+    <em>Events:</em> We left home at midnight and arrived at the parking area at 3 AM. First, we rode a jeep through the sea of sand. Then, we climbed the stairs to the crater's edge. The smoke and the smell of sulfur made the experience truly dramatic.<br><br>
+    <em>Reorientation:</em> Watching the sunrise over the volcanic landscape was breathtaking. I will never forget that magical morning as long as I live.</p>
+  </div>
+
+  <!-- QUIZ RECOUNT -->
+  <div class="quiz-section reveal">
+    <h3>📝 Quiz — Recount Text</h3>
+    <p class="quiz-desc">Read the recount below, then answer 10 questions!</p>
+    <div class="story-box rust-story">
+      <p class="story-label">📖 Read this recount</p>
+      <p><strong>My First Day at a New School</strong></p><br>
+      <p>Last Monday was my first day at SMP Nusantara, a school I had just transferred to after my family moved to a new city. I felt very nervous that morning as I put on my new uniform.</p><br>
+      <p>First, my mother drove me to school. When I arrived, the security guard greeted me kindly and showed me to my classroom. My homeroom teacher, Mr. Hendra, introduced me to the class in front of everyone, which made my face turn red.</p><br>
+      <p>During the break, a girl named Sari approached me and invited me to eat lunch with her group of friends. They were very welcoming and funny. We talked about our favourite subjects and hobbies. I found out that two of them also loved playing badminton, just like me.</p><br>
+      <p>By the end of the day, I no longer felt like a stranger. I went home smiling, grateful that my first day had turned out so much better than I had expected.</p>
+    </div>
+    <div class="quiz-list" id="quiz-recount"></div>
+    <button class="submit-btn rust-btn" onclick="submitQuiz('recount')">Check My Score</button>
+    <button class="reset-btn" onclick="resetQuiz('recount')">Reset Quiz</button>
+    <div class="quiz-result rust-res" id="result-recount">
+      <div class="score-num" id="score-recount"></div>
+      <p id="msg-recount"></p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SHORT BIOGRAPHY ═══ -->
+<section class="detail-section" id="biography">
+  <p class="detail-eyebrow biography-eye reveal">Text Type 03</p>
+  <h2 class="reveal">Short Biography</h2>
+
+  <p class="reveal">A <strong>short biography</strong> is a brief written account of a real person's life. It highlights the key facts, achievements, and contributions that made the person notable. The text is factual, informative, and usually written in the third person.</p>
+
+  <p class="reveal">Short biographies are commonly found in encyclopedias, school textbooks, and official profiles. They aim to <em>inform the reader</em> about who the person is, what they accomplished, and why they are remembered.</p>
+
+  <div class="info-grid reveal">
+    <div class="info-box teal-box">
+      <h4>🏗️ Generic Structure</h4>
+      <ul>
+        <li><strong>Introduction</strong> — Who the person is</li>
+        <li><strong>Life Events</strong> — Childhood, education, career</li>
+        <li><strong>Achievements</strong> — Notable contributions</li>
+        <li><strong>Conclusion</strong> — Legacy or summary</li>
+      </ul>
+    </div>
+    <div class="info-box teal-box">
+      <h4>✏️ Language Features</h4>
+      <ul>
+        <li>Third-person pronouns (he, she, they)</li>
+        <li>Simple past tense</li>
+        <li>Factual & descriptive language</li>
+        <li>Dates and specific details</li>
+        <li>Action verbs (founded, won, inspired)</li>
+      </ul>
+    </div>
+  </div>
+
+  <table class="struct-table reveal">
+    <tr><th>Part</th><th>Function</th><th>Example</th></tr>
+    <tr><td>Introduction</td><td>Identify the subject</td><td>"R.A. Kartini was an Indonesian national hero."</td></tr>
+    <tr><td>Life Events</td><td>Key moments of their life</td><td>"She was born in Jepara on April 21, 1879."</td></tr>
+    <tr><td>Achievements</td><td>What they accomplished</td><td>"She pioneered education for Indonesian women."</td></tr>
+    <tr><td>Conclusion</td><td>Lasting legacy</td><td>"Her struggle is commemorated every April 21st."</td></tr>
+  </table>
+
+  <div class="example-box reveal">
+    <p class="example-label">📖 Short Example</p>
+    <p><strong>R.A. Kartini</strong><br><br>
+    <em>Introduction:</em> Raden Ajeng Kartini was one of Indonesia's most celebrated national heroes, widely known for her advocacy for women's rights and education.<br><br>
+    <em>Life Events:</em> She was born on April 21, 1879, in Jepara, Central Java. As a Javanese noblewoman, she had access to Dutch education, which was rare for women at the time. Through letters to Dutch friends, she expressed her progressive ideas about equality and freedom.<br><br>
+    <em>Achievements:</em> Kartini established a school for Javanese women in 1903, breaking social barriers of her era. Her letters were later compiled into a famous book, <em>Door Duisternis tot Licht</em> (From Darkness to Light).<br><br>
+    <em>Conclusion:</em> Kartini passed away in 1904, but her legacy lives on. Her birthday, April 21st, is celebrated as Kartini Day throughout Indonesia, honoring her lasting contribution to women's empowerment.</p>
+  </div>
+
+  <!-- QUIZ BIOGRAPHY -->
+  <div class="quiz-section reveal">
+    <h3>📝 Quiz — Short Biography</h3>
+    <p class="quiz-desc">Read the biography below, then answer 10 questions!</p>
+    <div class="story-box teal-story">
+      <p class="story-label">📖 Read this biography</p>
+      <p><strong>Habibie — The Father of Indonesian Technology</strong></p><br>
+      <p>Bacharuddin Jusuf Habibie was born on June 25, 1936, in Parepare, South Sulawesi. He was one of Indonesia's most brilliant minds and is widely regarded as the father of Indonesian aviation technology.</p><br>
+      <p>At a young age, Habibie showed exceptional talent in mathematics and science. He pursued his higher education in Germany, where he studied aeronautical engineering at RWTH Aachen University. He later earned his doctorate with the highest honours and worked for the German aerospace company Messerschmitt-Bölkow-Blohm (MBB) for many years.</p><br>
+      <p>In 1974, President Soeharto invited Habibie to return to Indonesia to help develop the nation's technology sector. He founded PT IPTN (now PT Dirgantara Indonesia), a national aircraft manufacturing company, and successfully produced the N250 aircraft — a remarkable achievement for a developing nation.</p><br>
+      <p>Habibie later became Indonesia's third President in 1998, following the resignation of Soeharto. During his presidency, he introduced democratic reforms and freedom of the press. He passed away on September 11, 2019, leaving behind a legacy of innovation, courage, and national pride.</p>
+    </div>
+    <div class="quiz-list" id="quiz-biography"></div>
+    <button class="submit-btn teal-btn" onclick="submitQuiz('biography')">Check My Score</button>
+    <button class="reset-btn" onclick="resetQuiz('biography')">Reset Quiz</button>
+    <div class="quiz-result teal-res" id="result-biography">
+      <div class="score-num" id="score-biography"></div>
+      <p id="msg-biography"></p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <strong>English Text Types</strong><br>
+  Narrative · Recount · Short Biography<br><br>
+  <span style="font-size:12px;">An educational resource for English language learners</span>
+</footer>
+
+<script>
+  // ── QUIZ DATA ──────────────────────────────────────────────────────────────
+  const quizData = {
+    narrative: [
+      { q: "What type of text is 'The Brave Little Turtle'?", opts: ["Recount text", "Narrative text", "Short biography", "Descriptive text"], ans: 1, exp: "It is a narrative text because it tells a fictional story with characters, a complication, and a resolution." },
+      { q: "What was Timo's dream?", opts: ["To catch fish in the lake", "To leave the lake forever", "To explore the deep end of the lake", "To become the biggest turtle"], ans: 2, exp: "The text says Timo 'always dreamed of exploring the deep end of the lake'." },
+      { q: "What problem did Timo face in the story?", opts: ["He could not swim", "A strong current pulled him far from home", "He got lost in the forest", "The other turtles bullied him"], ans: 1, exp: "A strong current pulled Timo far from his home — this is the complication of the story." },
+      { q: "Who helped Timo find his way back?", opts: ["Another turtle", "A wise old fish named Coral", "His mother", "A kind bird"], ans: 1, exp: "An old wise fish named Coral appeared and gave him advice." },
+      { q: "What advice did Coral give Timo?", opts: ["Swim as fast as you can", "Follow the direction of the reeds", "Go back the way you came", "Ask the other turtles for help"], ans: 1, exp: "Coral said 'Follow the direction of the reeds'." },
+      { q: "What is the ORIENTATION part of this story?", opts: ["Timo struggled against the current", "Timo reached the shore safely", "Timo lived in a peaceful lake and dreamed of exploring", "Coral appeared and helped Timo"], ans: 2, exp: "The orientation introduces the setting (peaceful lake) and main character (Timo) at the beginning." },
+      { q: "What did the other turtles do when Timo was in trouble?", opts: ["They swam out to rescue him", "They called for help", "They watched from the shore, too afraid to help", "They warned him beforehand"], ans: 2, exp: "The text says 'The other turtles watched from the shore, too afraid to help'." },
+      { q: "What is the moral lesson of the story?", opts: ["Never swim alone", "Always stay near the shore", "Courage combined with wisdom overcomes any obstacle", "Fish are more helpful than turtles"], ans: 2, exp: "The reorientation states 'courage, combined with wisdom, can overcome any obstacle'." },
+      { q: "Which tense is mainly used in this narrative text?", opts: ["Present tense", "Future tense", "Past tense", "Present perfect tense"], ans: 2, exp: "Narrative texts use past tense verbs, e.g. 'lived', 'dreamed', 'pulled', 'appeared'." },
+      { q: "What is the RESOLUTION of this story?", opts: ["Timo decided to explore the deep water", "Coral appeared and gave advice", "Timo successfully reached the shore after following Coral's advice", "Timo became afraid of the water"], ans: 2, exp: "The resolution is when Timo followed Coral's advice and finally reached the shore safely." }
+    ],
+    recount: [
+      { q: "What type of text is 'My First Day at a New School'?", opts: ["Narrative text", "Short biography", "Recount text", "Procedure text"], ans: 2, exp: "It is a recount text — it retells past personal events in chronological order." },
+      { q: "Why did the writer transfer to a new school?", opts: ["The old school closed down", "The family moved to a new city", "The writer got expelled", "The writer won a scholarship"], ans: 1, exp: "The text states 'a school I had just transferred to after my family moved to a new city'." },
+      { q: "What is the orientation of this recount text?", opts: ["The writer ate lunch with new friends", "The writer was introduced to the class", "It was last Monday, the writer's first day at SMP Nusantara", "The writer went home smiling"], ans: 2, exp: "The orientation sets the scene: when (last Monday), where (SMP Nusantara), and why (new transfer student)." },
+      { q: "Who introduced the writer to the class?", opts: ["The security guard", "Sari", "Mr. Hendra the homeroom teacher", "The principal"], ans: 2, exp: "The text says 'My homeroom teacher, Mr. Hendra, introduced me to the class'." },
+      { q: "How did the writer feel when introduced in front of the class?", opts: ["Happy and proud", "Embarrassed — face turned red", "Angry and upset", "Confused and silent"], ans: 1, exp: "The text says 'which made my face turn red' — showing embarrassment." },
+      { q: "Who approached the writer during the break?", opts: ["Mr. Hendra", "The security guard", "A girl named Sari", "A boy named Budi"], ans: 2, exp: "A girl named Sari approached the writer and invited them to eat lunch." },
+      { q: "What shared hobby did the writer discover with two new friends?", opts: ["Playing chess", "Playing badminton", "Watching movies", "Singing"], ans: 1, exp: "The text says 'two of them also loved playing badminton, just like me'." },
+      { q: "What is the REORIENTATION of this recount text?", opts: ["First, my mother drove me to school", "I felt very nervous that morning", "I went home smiling, grateful the day went well", "Sari invited me to eat lunch"], ans: 2, exp: "The reorientation is the closing reflection: the writer went home smiling and grateful." },
+      { q: "What pronoun is mainly used in this personal recount?", opts: ["He / She", "We / They", "I / My", "You / Your"], ans: 2, exp: "Personal recounts use first-person pronouns. The text uses 'I', 'my', and 'me' throughout." },
+      { q: "Which word is a TIME CONNECTIVE used in this recount?", opts: ["However", "Because", "First", "Although"], ans: 2, exp: "'First' is a time connective that shows the sequence of events, which is a key language feature of recount texts." }
+    ],
+    biography: [
+      { q: "What type of text is 'Habibie — The Father of Indonesian Technology'?", opts: ["Narrative text", "Recount text", "Short biography", "Descriptive text"], ans: 2, exp: "It is a short biography — a factual account of a real person's life and achievements." },
+      { q: "When and where was Habibie born?", opts: ["June 25, 1936, in Jakarta", "June 25, 1936, in Parepare, South Sulawesi", "June 21, 1940, in Bandung", "September 11, 1936, in Makassar"], ans: 1, exp: "The text states he was born on June 25, 1936, in Parepare, South Sulawesi." },
+      { q: "Where did Habibie study aeronautical engineering?", opts: ["University of Indonesia", "MIT in the USA", "RWTH Aachen University in Germany", "Cambridge University in the UK"], ans: 2, exp: "He studied at RWTH Aachen University in Germany." },
+      { q: "What company did Habibie work for in Germany?", opts: ["Boeing", "Airbus", "Messerschmitt-Bölkow-Blohm (MBB)", "Lufthansa"], ans: 2, exp: "He worked for the German aerospace company Messerschmitt-Bölkow-Blohm (MBB)." },
+      { q: "What did Habibie found after returning to Indonesia?", opts: ["PT Garuda Indonesia", "PT IPTN (now PT Dirgantara Indonesia)", "Bank Negara Indonesia", "PT Telkom Indonesia"], ans: 1, exp: "He founded PT IPTN (now PT Dirgantara Indonesia), a national aircraft manufacturing company." },
+      { q: "What was the name of the aircraft produced by Habibie's company?", opts: ["N100", "N250", "Garuda-1", "Nusantara 500"], ans: 1, exp: "The text mentions 'the N250 aircraft' as a remarkable national achievement." },
+      { q: "Who invited Habibie to return to Indonesia in 1974?", opts: ["President Soekarno", "President Soeharto", "President Megawati", "President Wahid"], ans: 1, exp: "President Soeharto invited Habibie to return in 1974." },
+      { q: "Which president did Habibie succeed to become Indonesia's 3rd President?", opts: ["Soekarno", "Megawati", "Soeharto", "Abdurrahman Wahid"], ans: 2, exp: "He became president following the resignation of Soeharto in 1998." },
+      { q: "What is the main pronoun used in this short biography?", opts: ["I / Me", "You / Your", "We / Us", "He / His"], ans: 3, exp: "Short biographies use third-person pronouns. The text uses 'He' and 'His' throughout." },
+      { q: "When did Habibie pass away?", opts: ["June 25, 2019", "August 17, 2019", "September 11, 2019", "April 21, 2019"], ans: 2, exp: "The text says 'He passed away on September 11, 2019'." }
+    ]
+  };
+
+  // ── BUILD QUIZ ──────────────────────────────────────────────────────────────
+  const colorClass = { narrative: 'gold-q', recount: 'rust-q', biography: 'teal-q' };
+
+  function buildQuiz(type) {
+    const container = document.getElementById('quiz-' + type);
+    if (!container || container.children.length > 0) return;
+    quizData[type].forEach((item, i) => {
+      const div = document.createElement('div');
+      div.className = 'quiz-item ' + colorClass[type];
+      div.id = type + '-q' + i;
+      div.innerHTML = `
+        <div class="q-text"><span class="q-num">${i+1}</span>${item.q}</div>
+        <div class="options">
+          ${item.opts.map((o, j) => `<button class="opt-btn" onclick="answer('${type}',${i},${j})">${String.fromCharCode(65+j)}. ${o}</button>`).join('')}
+        </div>
+        <div class="feedback" id="fb-${type}-${i}"></div>`;
+      container.appendChild(div);
+    });
+  }
+
+  function answer(type, qi, chosen) {
+    const item = quizData[type][qi];
+    const qEl = document.getElementById(type + '-q' + qi);
+    const btns = qEl.querySelectorAll('.opt-btn');
+    const fb = document.getElementById('fb-' + type + '-' + qi);
+    btns.forEach(b => b.disabled = true);
+    btns[item.ans].classList.add('correct');
+    if (chosen !== item.ans) btns[chosen].classList.add('wrong');
+    fb.textContent = chosen === item.ans ? '✅ Correct! ' + item.exp : '❌ Wrong. ' + item.exp;
+    fb.className = 'feedback show ' + (chosen === item.ans ? 'ok' : 'err');
+  }
+
+  function submitQuiz(type) {
+    const items = quizData[type];
+    let score = 0;
+    items.forEach((item, i) => {
+      const qEl = document.getElementById(type + '-q' + i);
+      if (!qEl) return;
+      const btns = qEl.querySelectorAll('.opt-btn');
+      // count correct answers (btn has class 'correct' and was chosen correctly)
+      const fb = document.getElementById('fb-' + type + '-' + i);
+      if (fb && fb.textContent.startsWith('✅')) score++;
+      // highlight unanswered
+      if (!btns[0].disabled) {
+        btns.forEach(b => b.disabled = true);
+        btns[item.ans].classList.add('reveal-correct');
+        const fbEl = document.getElementById('fb-' + type + '-' + i);
+        fbEl.textContent = '⚠️ Unanswered. Correct: ' + item.exp;
+        fbEl.className = 'feedback show err';
+      }
+    });
+    const res = document.getElementById('result-' + type);
+    const scoreEl = document.getElementById('score-' + type);
+    const msgEl = document.getElementById('msg-' + type);
+    scoreEl.textContent = score + ' / 10';
+    const pct = score * 10;
+    msgEl.textContent = pct >= 80 ? '🎉 Excellent! You have a strong understanding of this text type.' :
+                        pct >= 60 ? '👍 Good job! Review the explanations above to improve further.' :
+                        '📚 Keep studying! Re-read the material and try again.';
+    res.classList.add('show');
+    res.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  function resetQuiz(type) {
+    const container = document.getElementById('quiz-' + type);
+    container.innerHTML = '';
+    document.getElementById('result-' + type).classList.remove('show');
+    buildQuiz(type);
+  }
+
+  // Build all quizzes on load
+  window.addEventListener('DOMContentLoaded', () => {
+    buildQuiz('narrative');
+    buildQuiz('recount');
+    buildQuiz('biography');
+  });
+
+  // ── SCROLL REVEAL ────────────────────────────────────────────────────────────
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        e.target.style.transitionDelay = (i % 3) * 0.1 + 's';
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
