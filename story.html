@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Story & Quiz - EnglishHub</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">📚 EnglishHub</div>
+        <a href="#" class="nav-back" id="navBack">← Back</a>
+    </nav>
+
+    <div class="container">
+        <div id="breadcrumb" class="breadcrumb"></div>
+        <div class="progress-text" id="progressText">📖 Reading the story...</div>
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <div class="story-page">
+            <div id="levelBadge" class="story-badge"></div>
+            <h2 class="story-title" id="storyTitle"></h2>
+            <div class="story-text" id="storyContent"></div>
+        </div>
+
+        <div id="quizContainer" class="quiz-section"></div>
+        <button class="submit-btn" onclick="submitQuiz()">Check My Answers ✓</button>
+        <div id="resultContent"></div>
+    </div>
+</body>
+</html>
